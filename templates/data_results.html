@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluation Results | IDS</title>
+    <link rel="stylesheet" href="../static/data.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Model Evaluation Results</h1>
+        
+        <h2>Confusion Matrix</h2>
+        <table class="metrics-table">
+            <tr>
+                <th></th>
+                <th>Predicted BENIGN</th>
+                <th>Predicted LOW</th>
+                <th>Predicted HIGH</th>
+            </tr>
+            {% for i in range(3) %}
+            <tr>
+                <th>Actual {{ class_names[i] }}</th>
+                {% for j in range(3) %}
+                <td>{{ confusion_matrix[i][j] }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        
+        <h2>Performance Metrics</h2>
+        <table class="metrics-table">
+            <tr>
+                <th>Class</th>
+                <th>Sensitivity (Recall)</th>
+                <th>Specificity</th>
+                <th>Precision</th>
+                <th>F1 Score</th>
+            </tr>
+            {% for i in range(3) %}
+            <tr>
+                <td>{{ class_names[i] }}</td>
+                <td>{{ "%.4f"|format(sensitivity[i]) }}</td>
+                <td>{{ "%.4f"|format(specificity[i]) }}</td>
+                <td>{{ "%.4f"|format(precision[i]) }}</td>
+                <td>{{ "%.4f"|format(f1_score[i]) }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+        <button onclick="window.location.href='/existing-data'">Evaluate Another Model</button>
+        <button onclick="window.location.href='/'">Back to Home</button>
+    </div>
+</body>
+</html>

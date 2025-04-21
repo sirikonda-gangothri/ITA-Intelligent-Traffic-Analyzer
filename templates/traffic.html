@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Traffic Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='traffic.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-content">
+                <i class="fas fa-network-wired header-icon"></i>
+                <h1>Network Traffic Analyzer</h1>
+            </div>
+        </header>
+
+        <main class="app-main">
+            <section class="control-section">
+                <div class="control-panel">
+                    <div class="file-upload">
+                        <label for="modelUpload" class="btn btn-secondary">
+                            <i class="fas fa-upload"></i> Load Model
+                        </label>
+                        <input type="file" id="modelUpload" accept=".pkl,.joblib ,.sav" style="display: none;">
+                        <span id="modelStatus">No model loaded</span>
+                    </div>
+                    <button id="startBtn" class="btn btn-primary" disabled>
+                        <i class="fas fa-play"></i> Start Analysis
+                    </button>
+                    <button id="stopBtn" class="btn btn-danger" disabled>
+                        <i class="fas fa-stop"></i> Stop Analysis
+                    </button>
+                </div>
+                
+                <div id="status" class="status-card status-ready">
+                    <i class="fas fa-info-circle"></i> 
+                    <span class="status-text">Load a model to begin analysis</span>
+                </div>
+            </section>
+
+            <section class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-file-export"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Output File</h3>
+                        <p id="fileInfo" class="stat-value">Not capturing</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Packets Analyzed</h3>
+                        <p id="packetCount" class="stat-value">0</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Threat Level</h3>
+                        <p id="threatLevel" class="stat-value">Unknown</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="visualization-section">
+                <div class="section-header">
+                    <i class="fas fa-chart-line"></i>
+                    <h2>Traffic Analysis</h2>
+                </div>
+                <div class="graph-container">
+                    <img id="trafficGraph" src="" alt="Network Traffic Analysis Graph">
+                </div>
+            </section>
+
+            <section class="prediction-section">
+                <div class="section-header">
+                    <i class="fas fa-table"></i>
+                    <h2>Recent Predictions</h2>
+                </div>
+                <div class="table-container">
+                    <table id="predictionTable">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Source IP</th>
+                                <th>Destination IP</th>
+                                <th>Packet Size</th>
+                                <th>Prediction</th>
+                            </tr>
+                        </thead>
+                        <tbody id="predictionTableBody">
+                            <tr class="empty-row">
+                                <td colspan="5">No predictions yet</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="log-section">
+                <div class="section-header">
+                    <i class="fas fa-clipboard-list"></i>
+                    <h2>Activity Log</h2>
+                </div>
+                <div id="activityLog" class="log-container">
+                    <div class="log-entry">[<span class="log-time">System Start</span>] System initialized</div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <p>Network Traffic Analyzer v2.0</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='traffic.js') }}"></script>
+</body>
+</html>
